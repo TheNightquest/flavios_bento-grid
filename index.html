@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- displays site properly based on user's device -->
+
+    <link href="./assets/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+
+    <title>Frontend Mentor | Bento grid</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+        :root {
+            --purple-100: hsl(254, 88%, 90%);
+            --purple-500: hsl(256, 67%, 59%);
+
+            --yellow-100: hsl(31, 66%, 93%);
+            --yellow-500: hsl(39, 100%, 71%);
+
+            --white: hsl(0, 0%, 100%);
+            --black: hsl(0, 0%, 7%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            border-radius: 2rem;
+        }
+
+        html {
+            font-size: 18px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        body {
+            background-color: deeppink;
+        }
+
+        .attribution {
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .attribution a {
+            color: hsl(228, 45%, 44%);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            grid-column-gap: 1rem;
+            grid-row-gap: 1rem;
+            aspect-ratio: 1 / 1;
+            padding: 2rem;
+        }
+
+        .bento-grid__cell {
+            height: 100%;
+            width: 100%;
+            padding: 2rem;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .bento-grid__image {
+            position: relative;
+            height: auto;
+            width: 100%;
+            object-fit: contain;
+            box-sizing: content-box;
+        }
+
+        .bento-grid__image-horizontal-align {
+            height: 100%;
+            width: auto;
+        }
+
+        .bento-grid__image--double-width {
+            height: auto;
+            width: 200%;
+            object-position: left center;
+        }
+
+        .bento-grid__image--double-height {
+            overflow: hidden;
+            object-position: top center;
+            object-fit: cover;
+            border-radius: 2rem 2rem 0 0;
+        }
+
+        .bento-grid__title, .bento-grid__subtitle, .bento-grid__text-large {
+            font-weight: 500;
+            padding: 0;
+        }
+
+        .bento-grid__title, .bento-grid__text-large {
+            line-height: 5rem;
+            font-size: 5rem;
+        }
+
+        .bento-grid__subtitle {
+            font-size: 3rem;
+            line-height: 3rem;
+        }
+
+        .bento-grid__subtitle:not(.bento-grid__cell--no-margin .bento-grid__subtitle) {
+            margin-bottom: 1rem;
+        }
+
+        .bento-grid__text {
+            margin-top: 1rem;
+            font-weight: 400;
+        }
+
+        .bento-grid__text--white {
+            color: white;
+        }
+
+        .bento-grid__subtitle, .bento-grid__text, .bento-grid__title {
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-grid__overflow-img-container {
+            justify-items: flex-start;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            height: unset;
+            width: 100%;
+            overflow: visible;
+            max-height: 75%;
+        }
+
+        .bento-grid__cell-darkpurple {
+            background-color: var(--purple-500);
+
+        }
+        .bento-grid__cell-orange {
+            background-color: var(--yellow-500);
+        }
+
+        .bento-grid__cell--hero {
+            text-align: center;
+            color: var(--white);
+            grid-column: 3 / span 4;
+            grid-row: 1 / span 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .bento-grid__cell--hero .bento-grid__image {
+            height: 3rem;
+        }
+
+        .bento-grid__cell--socialaccounts {
+            background-color: var(--white);
+            color: var(--black);
+            grid-column: 3 / span 2;
+            grid-row: 3 / span 2;
+        }
+
+        .bento-grid__cell--socialaccounts .bento-grid__subtitle {
+            margin-top: 1rem;
+        }
+
+        .bento-grid__cell--calender {
+            color: var(--black);
+            grid-column: 5 / span 2;
+            grid-row: 3 / span 2;
+            padding-bottom: 0;
+        }
+
+        .bento-grid__cell--vertical-large {
+            background-color: var(--purple-100);
+            color: var(--black);
+            grid-column: 7 / span 2;
+            grid-row: 1 / span 4;
+            align-content: space-around;
+        }
+
+        .bento-grid__cell--horizontal-align {
+            color: var(--white);
+            grid-column: 5 / span 4;
+            grid-row: 5 / span 2;
+            display: flex;
+            flex-direction: row;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .bento-grid__cell--metric {
+            background-color: var(--white);
+            color: var(--black);
+            grid-column: 3 / span 2;
+            grid-row: 5 / span 2;
+        }
+
+        .bento-grid__cell--metric p {
+            margin-bottom: 1rem;
+        }
+
+        .bento-grid__cell--ceatepost {
+            background-color: var(--yellow-100);
+            color: var(--black);
+            grid-row: 1 / span 3;
+            grid-column: 1 / span 2;
+        }
+
+        .bento-grid__cell--wright {
+            color: var(--black);
+            grid-column: 1 / span 2;
+            grid-row: 4 / span 3;
+        }
+
+        @media only screen and (max-width: 375px) {
+
+            .bento-grid {
+                display: block;
+                aspect-ratio: unset;
+            }
+
+            .bento-grid__title, .bento-grid__text-large {
+                font-size: 2.5rem;
+                line-height: 2.5rem;
+            }
+
+            .bento-grid__text {
+                font-size: 1rem;
+                margin: 0;
+            }
+
+            .bento-grid__subtitle {
+                font-weight: bold;
+                font-size: 1.2rem;
+                line-height: 1.2rem;
+            }
+
+            .bento-grid__image, .bento-grid__image--double-height {
+                border-radius: 1rem;
+                max-width: 100%;
+                width: 70%;
+            }
+            .bento-grid__image-horizontal-align, .bento-grid__overflow-img-container,.bento-grid__image--double-width {
+                max-width: 100%;
+                border-radius: 1rem;
+            }
+
+            .bento-grid__cell {
+                padding: 1rem;
+            }
+
+            .bento-grid__image--double-width {
+                border-radius: 0.5rem;
+            }
+
+            .bento-grid__image--double-height {
+                border-radius: 0.5rem 0.5rem 0 0;
+            }
+
+            .bento-grid__cell--calender .bento-grid__overflow-img-container {
+                margin-bottom: -1rem;
+            }
+
+            .bento-grid__cell {
+                display: block;
+                margin-bottom: 1rem;
+                padding: 1rem;
+                border-radius: 1rem;
+            }
+
+            .bento-grid__cell--socialaccounts .bento-grid__subtitle {
+                margin-top: 0.5rem;
+            }
+
+            .bento-grid__cell--vertical-large .bento-grid__text {
+                margin-top: 1rem;
+            }
+
+            .bento-grid__cell--vertical-large, .bento-grid__cell--horizontal-align {
+                text-align: center;
+            }
+
+            .bento-grid__cell--horizontal-align {
+                padding: 1rem 3rem;
+            }
+
+            .bento-grid__cell--wright {
+                padding-right: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bento-grid">
+    <div class="bento-grid__cell bento-grid__cell--hero bento-grid__cell-darkpurple">
+        <h1 class="bento-grid__title bento-grid__text--white">Social Media <span style="color: var(--yellow-500);">10x</span> <i>Faster</i> with AI</h1>
+        <img class="bento-grid__image" alt="" src="assets/images/illustration-five-stars.webp">
+        <p class="bento-grid__text--white">Over 4,000 5-star reviews</p>
+    </div>
+    <div class="bento-grid__cell bento-grid__cell--socialaccounts">
+        <div class="bento-grid__overflow-img-container">
+            <img alt="" class="bento-grid__image--double-width" src="assets/images/illustration-multiple-platforms.webp">
+        </div>
+        <h2 class="bento-grid__subtitle">Manage multiple accounts and platforms.</h2>
+    </div>
+    <div class="bento-grid__cell bento-grid__cell-orange bento-grid__cell--calender">
+        <h2 class="bento-grid__subtitle">Maintain a consistent posting schedule.</h2>
+        <div class="bento-grid__overflow-img-container">
+            <img alt="" class="bento-grid__image--double-height" src="assets/images/illustration-consistent-schedule.webp">
+        </div>
+    </div>
+    <div class="bento-grid__cell bento-grid__cell--vertical-large">
+        <h2 class="bento-grid__subtitle">Schedule to social media.</h2>
+        <div class="bento-grid__overflow-img-container">
+            <img alt="" class="bento-grid__image--double-width" src="assets/images/illustration-schedule-posts.webp">
+        </div>
+        <p class="bento-grid__text">Optimize post timings to publish content at the perfect time for your audience.</p>
+    </div>
+    <div class="bento-grid__cell bento-grid__cell-darkpurple bento-grid__cell--horizontal-align">
+        <img alt="" class="bento-grid__image-horizontal-align" src="assets/images/illustration-grow-followers.webp">
+        <h2 class="bento-grid__subtitle bento-grid__text--white">Grow followers with non-stop content.</h2>
+    </div>
+    <div class="bento-grid__cell bento-grid__cell--metric" style="align-content: space-around">
+        <p class="bento-grid__text-large">>56%</p>
+        <p class="bento-grid__text">faster audience growth</p>
+        <img class="bento-grid__image" alt="" src="assets/images/illustration-audience-growth.webp">
+    </div>
+    <div class="bento-grid__cell bento-grid__cell--ceatepost">
+        <h2 class="bento-grid__subtitle">Create and schedule content <span style="color: var(--purple-500);"><i>quicker.</i></span></h2>
+        <img class="bento-grid__image" alt="" src="assets/images/illustration-create-post.webp">
+    </div>
+    <div class="bento-grid__cell bento-grid__cell-orange bento-grid__cell--wright">
+        <h2 class="bento-grid__subtitle">Write your content using AI.</h2>
+        <img class="bento-grid__image" alt="" src="assets/images/illustration-ai-content.webp">
+    </div>
+</div>
+<div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+</div>
+</body>
+</html>
+
